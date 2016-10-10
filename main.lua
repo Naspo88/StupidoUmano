@@ -7,7 +7,7 @@
 local widget = require( "widget" )
 
 -- elements init
-local bg, info, header, contentBox, playBtn, pauseBtn, refreshBtn, timeTxt
+local bg, info, header, contentBox, playBtn, pauseBtn, refreshBtn, timeTxt, tm, rem
 
 -- colors
 local transparent = { default={ 1, 1, 1, 0 }, over={ 1, 1, 1, 0 } }
@@ -18,6 +18,7 @@ local margins = 5
 -- times
 _G.timeInSecond = 60
 local timeActive = _G.timeInSecond
+local step = 1000
 
 -- images
 local image = { path="images\\defaultbg.png", width=1080, height=1920, x=0.5, y=0.5 }
@@ -91,7 +92,24 @@ local function formatText (time)
 		s = "0" .. s
 	end
 
-	return h .. m .. s .. " " .. k
+	timeTxt.text = h .. m .. s .. " " .. k
+end
+
+local function changeTime (event)
+	timeActive = timeActive - 1
+
+	if (timeActive > 0) then
+		formatText(timeActive)
+		tm = timer.performWithDelay( step, changeTime, 1 )
+	else
+		tm = nil
+		formatText(timeActive)
+
+		playBtn.isVisible = false
+        pauseBtn.isVisible = false
+        refreshBtn.isVisible = true
+	end
+
 end
 
 -- Function to handle button events
@@ -105,6 +123,13 @@ local function playClick (event)
 	if ( "ended" == event.phase ) then
         playBtn.isVisible = false
         pauseBtn.isVisible = true
+
+        if (tm == nil) then
+        	tm = timer.performWithDelay( step, changeTime, 1 )
+        else
+        	refreshBtn.isVisible = false
+        	timer.resume( tm )
+        end
     end
 end
 
@@ -112,12 +137,27 @@ local function pauseClick (event)
 	if ( "ended" == event.phase ) then
         playBtn.isVisible = true
         pauseBtn.isVisible = false
+
+        if ( timeActive < _G.timeInSecond) then
+        	refreshBtn.isVisible = true
+        end
+
+        timer.pause( tm )
     end
 end
 
 local function refreshClick (event)
 	if ( "ended" == event.phase ) then
 		refreshBtn.isVisible = false
+
+		if ( tm ) then
+			timer.cancel( tm )
+		end
+		timeActive = _G.timeInSecond
+		formatText(timeActive)
+		tm = nil
+
+		playBtn.isVisible = true
     end
 end
 
@@ -178,7 +218,7 @@ refreshBtn.isVisible = false
 
 -- Time text init
 timeTxt = display.newText({
-	text = formatText(timeActive),
+	text = "",
 	width = bbW,
 	height = 0,
 	font = native.newFont(),
@@ -187,3 +227,5 @@ timeTxt = display.newText({
 })
 timeTxt.x, timeTxt.y = getPosition(time)
 timeTxt:setFillColor(time.color)
+
+formatText(timeActive)
