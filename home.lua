@@ -20,7 +20,7 @@ local transparent = { default={ 1, 1, 1, 0 }, over={ 1, 1, 1, 0 } }
 
 -- times
 local timeActive = g.timeInSecond
-local step = 1000
+local step = 980
 local baseCats = "images\\cats\\"
 
 local space = 25
