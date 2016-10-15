@@ -81,6 +81,21 @@ local function getPosition (data, newLine)
 	return x, y
 end
 
+local function getRandomPosition ()
+	local ranW = math.random(30,70) / 100
+	local ranH = math.random(20,80) / 100
+
+	return display.contentWidth*ranW, display.contentHeight*ranH
+end
+
+local function hidethis (obj)
+	transition.to( obj, { time=1000, alpha=0 } )
+end
+
+local function showthis (obj, max)
+	transition.to( obj, { time=1000, alpha=max } )
+end
+
 local function getDimension (w, h, percWith, margin)
 	percWith = percWith or 100
 	margin = margin or margins
@@ -102,6 +117,9 @@ M.colorTitle = colorTitle
 M.colorContent = colorContent
 M.formatText = formatText
 M.getPosition = getPosition
+M.getRandomPosition = getRandomPosition
+M.hidethis = hidethis
+M.showthis = showthis
 M.getDimension = getDimension
 M.btnPress = btnPress
 M.endTime = endTime

@@ -12,7 +12,8 @@ local g = require( "globals" )
 local scene = composer.newScene()
 
 -- elements init
-local bg, info, header, contentBox, playBtn, pauseBtn, refreshBtn, timeTxt, tm, rem
+local bg, info, header, contentBox, playBtn, pauseBtn, refreshBtn, timeTxt, tm, rem, showCat
+local cats = {}
 
 -- colors
 local transparent = { default={ 1, 1, 1, 0 }, over={ 1, 1, 1, 0 } }
@@ -20,6 +21,7 @@ local transparent = { default={ 1, 1, 1, 0 }, over={ 1, 1, 1, 0 } }
 -- times
 local timeActive = g.timeInSecond
 local step = 1000
+local baseCats = "images\\cats\\"
 
 local space = 25
 
@@ -32,14 +34,50 @@ local play = { path="images\\btn\\play.png", width=500, height=500, dim=150, x=0
 local pause = { path="images\\btn\\pausa.png", width=500, height=500, dim=150, x=0.5, y=0.7 }
 local refresh = { path="images\\btn\\refresh.png", width=500, height=500, dim=75, x=0.2, y=0.72 }
 local time1 = { x=0.55, y=0.5, fontSize=90, color=g.colorContent }
+local allCats = {
+	{ path= baseCats .. "ciccionebonzo.png", width=1200, height=1200 },
+	{ path= baseCats .. "gattabianca.png", width=1200, height=1379 },
+	{ path= baseCats .. "gattino.png", width=1200, height=1395 },
+	{ path= baseCats .. "gattonero.png", width=1200, height=1379 },
+	{ path= baseCats .. "randagio.png", width=1200, height=979 },
+	{ path= baseCats .. "selvaggia.png", width=1200, height=1395 }
+}
 
 -- function to manage the page
+local function toggleRandomCat ()
+	if (showCat) then
+		g.hidethis(cats[showCat])
+	end
+
+	local randomDim = math.random(70,80)
+	local newRandom = math.random(table.maxn(cats))
+
+	if (showCat == newRandom) then
+		newRandom = newRandom + 1
+		if (newRandom > table.maxn(cats)) then
+			newRandom = 1
+		end
+	end
+
+	showCat = newRandom
+
+	local dw, dh = g.getDimension(allCats[showCat].width, allCats[showCat].height, randomDim)
+
+	cats[showCat].width, cats[showCat].height = dw, dh
+	cats[showCat].x, cats[showCat].y = g.getRandomPosition()
+	g.showthis(cats[showCat], 1)
+end
+
 local function changeTime (event)
 	timeActive = timeActive - 1
 
 	if (timeActive > 0) then
 		g.formatText(timeActive, timeTxt)
 		tm = timer.performWithDelay( step, changeTime, 1 )
+
+		if (timeActive % 10 == 0) then
+			toggleRandomCat()
+		end
 	else
 		tm = nil
 		g.formatText(timeActive, timeTxt)
@@ -81,6 +119,9 @@ local function playClick (event)
 
         if (tm == nil) then
         	tm = timer.performWithDelay( step, changeTime, 1 )
+
+        	g.hidethis(header)
+        	toggleRandomCat()
         else
         	refreshBtn.isVisible = false
         	timer.resume( tm )
@@ -95,7 +136,7 @@ local function pauseClick (event)
 
         g.btnPress()
 
-        if ( timeActive < g.timeInSecond) then
+        if ( timeActive <= g.timeInSecond) then
         	refreshBtn.isVisible = true
         end
 
@@ -112,11 +153,18 @@ local function refreshClick (event)
 		if ( tm ) then
 			timer.cancel( tm )
 		end
+
 		timeActive = g.timeInSecond
 		g.formatText(timeActive, timeTxt)
 		tm = nil
 
+		for i = 1, table.maxn(cats) do
+			cats[i].alpha = 0
+		end
+
 		playBtn.isVisible = true
+		header.alpha = 1
+		showCat = nil
     end
 end
 
@@ -142,6 +190,13 @@ function scene:show( event )
 		bg = display.newImageRect( image.path, display.contentWidth, display.contentHeight )
 		bg.x, bg.y = g.getPosition(image)
 
+		for i = 1, table.maxn(allCats) do
+			local dw, dh = g.getDimension(allCats[i].width, allCats[i].height, 60)
+			cats[i] = display.newImageRect( allCats[i].path, dw, dh )
+			cats[i].x, cats[i].y = g.getRandomPosition()
+			cats[i].alpha = 0
+		end
+
 		local hdW, hdH = g.getDimension(headImage.width, headImage.height, 80)
 		header = display.newImageRect( headImage.path, hdW, hdH )
 		header.x, header.y = g.getPosition(headImage)
@@ -149,6 +204,7 @@ function scene:show( event )
 		local bbW, bbH = g.getDimension(whiteBG.width, whiteBG.height, 95, 0)
 		contentBox = display.newImageRect( whiteBG.path, bbW, bbH )
 		contentBox.x, contentBox.y = g.getPosition(whiteBG)
+		contentBox.alpha = 0.75
 
 		info = widget.newButton({
 			id = "infoBtn",
