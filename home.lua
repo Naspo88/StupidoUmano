@@ -44,6 +44,8 @@ local function changeTime (event)
 		tm = nil
 		g.formatText(timeActive, timeTxt)
 
+		g.endTime()
+
 		playBtn.isVisible = false
         pauseBtn.isVisible = false
         refreshBtn.isVisible = true
@@ -59,6 +61,7 @@ local function infoButtonClick( event )
 		info:scale( 1/g.scale, 1/g.scale )
     elseif ( "ended" == event.phase ) then
        	info:scale( 1/g.scale, 1/g.scale )
+       	g.btnPress()
 
        	composer.removeScene( "info" )
        	local options = {
@@ -74,6 +77,8 @@ local function playClick (event)
         playBtn.isVisible = false
         pauseBtn.isVisible = true
 
+        g.btnPress()
+
         if (tm == nil) then
         	tm = timer.performWithDelay( step, changeTime, 1 )
         else
@@ -88,6 +93,8 @@ local function pauseClick (event)
         playBtn.isVisible = true
         pauseBtn.isVisible = false
 
+        g.btnPress()
+
         if ( timeActive < g.timeInSecond) then
         	refreshBtn.isVisible = true
         end
@@ -99,6 +106,8 @@ end
 local function refreshClick (event)
 	if ( "ended" == event.phase ) then
 		refreshBtn.isVisible = false
+
+		g.btnPress()
 
 		if ( tm ) then
 			timer.cancel( tm )

@@ -48,6 +48,7 @@ local function backClick( event )
 		goback:scale( 1/g.scale, 1/g.scale )
     elseif ( "ended" == event.phase ) then
        	goback:scale( 1/g.scale, 1/g.scale )
+       	g.btnPress()
 
        	composer.removeScene( "home" )
        	local options = {
@@ -65,6 +66,7 @@ local function menoBtnFn( event )
 		menoBtn:scale( 1/g.scale, 1/g.scale )
     elseif ( "ended" == event.phase ) then
        	menoBtn:scale( 1/g.scale, 1/g.scale )
+       	g.btnPress()
 
        	piuBtn.isVisible = true
        	g.timeInSecond = g.timeInSecond - 30
@@ -84,6 +86,7 @@ local function piuBtnFn( event )
 		piuBtn:scale( 1/g.scale, 1/g.scale )
     elseif ( "ended" == event.phase ) then
        	piuBtn:scale( 1/g.scale, 1/g.scale )
+       	g.btnPress()
 
        	menoBtn.isVisible = true
        	g.timeInSecond = g.timeInSecond + 30

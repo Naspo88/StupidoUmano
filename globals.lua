@@ -12,6 +12,16 @@ local infoFont = "fonts\\ComicJensFreePro-Regular.ttf"
 local colorTitle = {0.396, 0.396, 0.396}
 local colorContent = {0.02,0.25,0.28}
 
+-- suoni
+local btnSound = media.newEventSound( "sounds/Button.mp3" )
+local endSound = media.newEventSound( "sounds/Meow.mp3" )
+local btnPress = function()
+	media.playEventSound(btnSound)
+end
+local endTime = function()
+	media.playEventSound(endSound)
+end
+
 -- global functions
 local function formatText (time, timeTxt)
 	local function getLetter (t)
@@ -93,5 +103,7 @@ M.colorContent = colorContent
 M.formatText = formatText
 M.getPosition = getPosition
 M.getDimension = getDimension
+M.btnPress = btnPress
+M.endTime = endTime
 
 return M
