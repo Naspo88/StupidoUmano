@@ -3,9 +3,14 @@ local M = {}
 
 -- global variables
 local margins = 5
+local nl = 22
 local scale = 1.05
-local timeInSecond = 600
+local timeInSecond = 60
 local timeFont = "fonts\\Action_Man.ttf"
+local infoFont = "fonts\\ComicJensFreePro-Regular.ttf"
+
+local colorTitle = {0.396, 0.396, 0.396}
+local colorContent = {0.02,0.25,0.28}
 
 -- global functions
 local function formatText (time, timeTxt)
@@ -48,7 +53,7 @@ local function formatText (time, timeTxt)
 	timeTxt.text = h .. m .. s .. k
 end
 
-local function getPosition (data)
+local function getPosition (data, newLine)
 	local offset = {
 		top = data.top or 0,
 		left = data.left or 0,
@@ -58,6 +63,11 @@ local function getPosition (data)
 
 	local x = (display.contentWidth*data.x)+offset.right-offset.left
 	local y = (display.contentHeight*data.y)+offset.top-offset.bottom
+ 
+	if (newLine) then
+		y = y + nl
+	end
+
 	return x, y
 end
 
@@ -77,6 +87,9 @@ M.margins = margins
 M.scale = scale
 M.timeInSecond = timeInSecond
 M.timeFont = timeFont
+M.infoFont = infoFont
+M.colorTitle = colorTitle
+M.colorContent = colorContent
 M.formatText = formatText
 M.getPosition = getPosition
 M.getDimension = getDimension

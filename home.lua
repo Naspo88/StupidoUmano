@@ -31,7 +31,7 @@ local infoBtn = { path="images\\btn\\info.png", width=220, height=220, dim=50 }
 local play = { path="images\\btn\\play.png", width=500, height=500, dim=150, x=0.5, y=0.7 }
 local pause = { path="images\\btn\\pausa.png", width=500, height=500, dim=150, x=0.5, y=0.7 }
 local refresh = { path="images\\btn\\refresh.png", width=500, height=500, dim=75, x=0.2, y=0.72 }
-local time1 = { x=0.55, y=0.5, fontSize=90, color={0,0,0} }
+local time1 = { x=0.55, y=0.5, fontSize=90, color=g.colorContent }
 
 -- function to manage the page
 local function changeTime (event)
@@ -127,74 +127,77 @@ function scene:show( event )
 
     local sceneGroup = self.view
 
-    -- UI 
-	bg = display.newImageRect( image.path, display.contentWidth, display.contentHeight )
-	bg.x, bg.y = g.getPosition(image)
+    if ( event.phase == "did" ) then
 
-	local hdW, hdH = g.getDimension(headImage.width, headImage.height, 80)
-	header = display.newImageRect( headImage.path, hdW, hdH )
-	header.x, header.y = g.getPosition(headImage)
+	    -- UI 
+		bg = display.newImageRect( image.path, display.contentWidth, display.contentHeight )
+		bg.x, bg.y = g.getPosition(image)
 
-	local bbW, bbH = g.getDimension(whiteBG.width, whiteBG.height, 95, 0)
-	contentBox = display.newImageRect( whiteBG.path, bbW, bbH )
-	contentBox.x, contentBox.y = g.getPosition(whiteBG)
+		local hdW, hdH = g.getDimension(headImage.width, headImage.height, 80)
+		header = display.newImageRect( headImage.path, hdW, hdH )
+		header.x, header.y = g.getPosition(headImage)
 
-	info = widget.newButton({
-		id = "infoBtn",
-		width = infoBtn.dim,
-		height = infoBtn.dim,
-		left = display.contentWidth - infoBtn.dim - g.margins,
-		top = display.contentHeight - infoBtn.dim - g.margins,
-		fillColor = transparent,
-		defaultFile = infoBtn.path,
-		onEvent = infoButtonClick
-	})
+		local bbW, bbH = g.getDimension(whiteBG.width, whiteBG.height, 95, 0)
+		contentBox = display.newImageRect( whiteBG.path, bbW, bbH )
+		contentBox.x, contentBox.y = g.getPosition(whiteBG)
 
-	playBtn = widget.newButton({
-		id = "btnPlay",
-		width = play.dim,
-		height = play.dim,
-		fillColor = transparent,
-		defaultFile = play.path,
-		onEvent = playClick
-	})
-	playBtn.x, playBtn.y = g.getPosition(play)
+		info = widget.newButton({
+			id = "infoBtn",
+			width = infoBtn.dim,
+			height = infoBtn.dim,
+			left = display.contentWidth - infoBtn.dim - g.margins,
+			top = display.contentHeight - infoBtn.dim - g.margins,
+			fillColor = transparent,
+			defaultFile = infoBtn.path,
+			onEvent = infoButtonClick
+		})
 
-	pauseBtn = widget.newButton({
-		id = "btnPause",
-		width = pause.dim,
-		height = pause.dim,
-		fillColor = transparent,
-		defaultFile = pause.path,
-		onEvent = pauseClick
-	})
-	pauseBtn.x, pauseBtn.y = g.getPosition(pause)
-	pauseBtn.isVisible = false
+		playBtn = widget.newButton({
+			id = "btnPlay",
+			width = play.dim,
+			height = play.dim,
+			fillColor = transparent,
+			defaultFile = play.path,
+			onEvent = playClick
+		})
+		playBtn.x, playBtn.y = g.getPosition(play)
 
-	refreshBtn = widget.newButton({
-		id = "btnRefresh",
-		width = refresh.dim,
-		height = refresh.dim,
-		fillColor = transparent,
-		defaultFile = refresh.path,
-		onEvent = refreshClick
-	})
-	refreshBtn.x, refreshBtn.y = g.getPosition(refresh)
-	refreshBtn.isVisible = false
+		pauseBtn = widget.newButton({
+			id = "btnPause",
+			width = pause.dim,
+			height = pause.dim,
+			fillColor = transparent,
+			defaultFile = pause.path,
+			onEvent = pauseClick
+		})
+		pauseBtn.x, pauseBtn.y = g.getPosition(pause)
+		pauseBtn.isVisible = false
 
-	-- Time text init
-	timeTxt = display.newText({
-		text = "",
-		width = bbW - g.margins * 8,
-		height = 0,
-		font = g.timeFont,
-		fontSize = time1.fontSize,
-		align = "center"
-	})
-	timeTxt.x, timeTxt.y = g.getPosition(time1)
-	timeTxt:setFillColor(time1.color)
+		refreshBtn = widget.newButton({
+			id = "btnRefresh",
+			width = refresh.dim,
+			height = refresh.dim,
+			fillColor = transparent,
+			defaultFile = refresh.path,
+			onEvent = refreshClick
+		})
+		refreshBtn.x, refreshBtn.y = g.getPosition(refresh)
+		refreshBtn.isVisible = false
 
-    g.formatText(timeActive, timeTxt)
+		-- Time text init
+		timeTxt = display.newText({
+			text = "",
+			width = bbW - g.margins * 8,
+			height = 0,
+			font = g.timeFont,
+			fontSize = time1.fontSize,
+			align = "center"
+		})
+		timeTxt.x, timeTxt.y = g.getPosition(time1)
+		timeTxt:setFillColor(unpack(time1.color))
+
+	    g.formatText(timeActive, timeTxt)
+	end
 end
 
 
