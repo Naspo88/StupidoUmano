@@ -80,9 +80,9 @@ local function changeTime (event)
 
 		g.endTime()
 
-		playBtn.isVisible = false
-        pauseBtn.isVisible = false
-        refreshBtn.isVisible = true
+		g.enableBtn(playBtn, false)
+		g.enableBtn(pauseBtn, false)
+		g.enableBtn(refreshBtn, true)
 	end
 
 end
@@ -93,9 +93,15 @@ local function infoButtonClick( event )
 		info:scale( g.scale, g.scale )
 	elseif ( "cancelled" == event.phase ) then
 		info:scale( 1/g.scale, 1/g.scale )
+	elseif ( "moved" == event.phase ) then
+		-- Do nothing
     elseif ( "ended" == event.phase ) then
        	info:scale( 1/g.scale, 1/g.scale )
        	g.btnPress()
+
+       	if ( tm ) then
+			timer.cancel( tm )
+		end
 
        	composer.removeScene( "info" )
        	local options = {
@@ -107,15 +113,18 @@ local function infoButtonClick( event )
 end
 
 local function playClick (event)
+	print (event.phase .. " play")
 	if ( "began" == event.phase ) then
 		playBtn:scale( g.scale, g.scale )
 	elseif ( "cancelled" == event.phase ) then
 		playBtn:scale( 1/g.scale, 1/g.scale )
+	elseif ( "moved" == event.phase ) then
+		-- Do nothing
     elseif ( "ended" == event.phase ) then
        	playBtn:scale( 1/g.scale, 1/g.scale )
 
-        playBtn.isVisible = false
-        pauseBtn.isVisible = true
+       	g.enableBtn(playBtn, false)
+		g.enableBtn(pauseBtn, true)
 
         g.btnPress()
 
@@ -125,27 +134,30 @@ local function playClick (event)
         	g.hidethis(header)
         	toggleRandomCat()
         else
-        	refreshBtn.isVisible = false
+        	g.enableBtn(refreshBtn, false)
         	timer.resume( tm )
         end
     end
 end
 
 local function pauseClick (event)
+	print (event.phase .. " pause")
 	if ( "began" == event.phase ) then
 		pauseBtn:scale( g.scale, g.scale )
 	elseif ( "cancelled" == event.phase ) then
 		pauseBtn:scale( 1/g.scale, 1/g.scale )
+	elseif ( "moved" == event.phase ) then
+		-- Do nothing
     elseif ( "ended" == event.phase ) then
        	pauseBtn:scale( 1/g.scale, 1/g.scale )
 
-        playBtn.isVisible = true
-        pauseBtn.isVisible = false
+        g.enableBtn(playBtn, true)
+		g.enableBtn(pauseBtn, false)
 
         g.btnPress()
 
         if ( timeActive <= g.timeInSecond) then
-        	refreshBtn.isVisible = true
+			g.enableBtn(refreshBtn, true)
         end
 
         timer.pause( tm )
@@ -157,10 +169,12 @@ local function refreshClick (event)
 		refreshBtn:scale( g.scale, g.scale )
 	elseif ( "cancelled" == event.phase ) then
 		refreshBtn:scale( 1/g.scale, 1/g.scale )
+	elseif ( "moved" == event.phase ) then
+		-- Do nothing
     elseif ( "ended" == event.phase ) then
        	refreshBtn:scale( 1/g.scale, 1/g.scale )
 
-		refreshBtn.isVisible = false
+		g.enableBtn(refreshBtn, false)
 
 		g.btnPress()
 
@@ -176,7 +190,7 @@ local function refreshClick (event)
 			cats[i].alpha = 0
 		end
 
-		playBtn.isVisible = true
+		g.enableBtn(playBtn, true)
 		header.alpha = 1
 		showCat = nil
     end
@@ -249,7 +263,7 @@ function scene:show( event )
 			onEvent = pauseClick
 		})
 		pauseBtn.x, pauseBtn.y = g.getPosition(pause)
-		pauseBtn.isVisible = false
+		g.enableBtn(pauseBtn, false)
 
 		refreshBtn = widget.newButton({
 			id = "btnRefresh",
@@ -260,7 +274,7 @@ function scene:show( event )
 			onEvent = refreshClick
 		})
 		refreshBtn.x, refreshBtn.y = g.getPosition(refresh)
-		refreshBtn.isVisible = false
+		g.enableBtn(refreshBtn, false)
 
 		-- Time text init
 		timeTxt = display.newText({
@@ -291,6 +305,11 @@ end
 function scene:destroy( event )
 
     local sceneGroup = self.view
+
+    info = g.fullDestroy(info)
+    playBtn = g.fullDestroy(playBtn)
+    pauseBtn = g.fullDestroy(pauseBtn)
+    refreshBtn = g.fullDestroy(refreshBtn)
 
 end
 

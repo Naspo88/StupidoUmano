@@ -27,7 +27,7 @@ local endTime = function()
 	if (channel ~= nil) then
 		audio.stop(channel)
 	end
-	channel= audio.play( btnSound, { channel=1, loops=0 } )
+	channel= audio.play( endSound, { channel=1, loops=0 } )
 end
 
 -- global functions
@@ -101,6 +101,17 @@ local function showthis (obj, max)
 	transition.to( obj, { time=1000, alpha=max } )
 end
 
+local function enableBtn (obj, op)
+	obj.isVisible = op
+	obj:setEnabled( op )
+end
+
+local function fullDestroy (obj)
+	obj:removeSelf()
+	obj = nil
+	return obj
+end
+
 local function getDimension (w, h, percWith, margin)
 	percWith = percWith or 100
 	margin = margin or margins
@@ -125,6 +136,8 @@ M.getPosition = getPosition
 M.getRandomPosition = getRandomPosition
 M.hidethis = hidethis
 M.showthis = showthis
+M.enableBtn = enableBtn
+M.fullDestroy = fullDestroy
 M.getDimension = getDimension
 M.btnPress = btnPress
 M.endTime = endTime

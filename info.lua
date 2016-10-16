@@ -46,6 +46,8 @@ local function backClick( event )
 		goback:scale( g.scale, g.scale )
 	elseif ( "cancelled" == event.phase ) then
 		goback:scale( 1/g.scale, 1/g.scale )
+	elseif ( "moved" == event.phase ) then
+		-- Do nothing
     elseif ( "ended" == event.phase ) then
        	goback:scale( 1/g.scale, 1/g.scale )
        	g.btnPress()
@@ -64,6 +66,8 @@ local function menoBtnFn( event )
 		menoBtn:scale( g.scale, g.scale )
 	elseif ( "cancelled" == event.phase ) then
 		menoBtn:scale( 1/g.scale, 1/g.scale )
+	elseif ( "moved" == event.phase ) then
+		-- Do nothing
     elseif ( "ended" == event.phase ) then
        	menoBtn:scale( 1/g.scale, 1/g.scale )
        	g.btnPress()
@@ -84,6 +88,8 @@ local function piuBtnFn( event )
 		piuBtn:scale( g.scale, g.scale )
 	elseif ( "cancelled" == event.phase ) then
 		piuBtn:scale( 1/g.scale, 1/g.scale )
+	elseif ( "moved" == event.phase ) then
+		-- Do nothing
     elseif ( "ended" == event.phase ) then
        	piuBtn:scale( 1/g.scale, 1/g.scale )
        	g.btnPress()
@@ -220,6 +226,10 @@ end
 function scene:destroy( event )
 
     local sceneGroup = self.view
+
+    piuBtn = g.fullDestroy(piuBtn)
+    menoBtn = g.fullDestroy(menoBtn)
+    goback = g.fullDestroy(goback)
 
 end
 
