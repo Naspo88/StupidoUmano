@@ -6,8 +6,8 @@ local margins = 5
 local nl = 22
 local scale = 1.2
 local timeInSecond = 60
-local timeFont = "fonts\\Action_Man.ttf"
-local infoFont = "fonts\\ComicJensFreePro-Regular.ttf"
+local timeFont = "fonts/Action_Man.ttf"
+local infoFont = "fonts/ComicJensFreePro-Regular.ttf"
 
 local colorTitle = {0.396, 0.396, 0.396}
 local colorContent = {0.02,0.25,0.28}

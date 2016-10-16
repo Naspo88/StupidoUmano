@@ -113,7 +113,6 @@ local function infoButtonClick( event )
 end
 
 local function playClick (event)
-	print (event.phase .. " play")
 	if ( "began" == event.phase ) then
 		playBtn:scale( g.scale, g.scale )
 	elseif ( "cancelled" == event.phase ) then
@@ -141,7 +140,6 @@ local function playClick (event)
 end
 
 local function pauseClick (event)
-	print (event.phase .. " pause")
 	if ( "began" == event.phase ) then
 		pauseBtn:scale( g.scale, g.scale )
 	elseif ( "cancelled" == event.phase ) then

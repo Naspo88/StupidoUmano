@@ -128,7 +128,7 @@ function scene:show( event )
 		bg.x, bg.y = g.getPosition(image)
 
 		local bbW, bbH = g.getDimension(topWbg.width, topWbg.height, 95, 0)
-		topBox = display.newImageRect( topWbg.path, bbW, bbH )
+		topBox = display.newImageRect( topWbg.path, bbW, display.contentHeight*0.15 )
 		topBox.x, topBox.y = g.getPosition(topWbg)
 
 		-- Time text init
@@ -166,7 +166,7 @@ function scene:show( event )
 		piuBtn.isVisible = (g.timeInSecond ~= 600)
 
 		local bb2W, bb2H = g.getDimension(bottomWbg.width, bottomWbg.height, 95, 0)
-		bottomBox = display.newImageRect( bottomWbg.path, bb2W, bb2H )
+		bottomBox = display.newImageRect( bottomWbg.path, bb2W, display.contentHeight*0.75 )
 		bottomBox.x, bottomBox.y = g.getPosition(bottomWbg)
 
 		local hdW, hdH = g.getDimension(headImage.width, headImage.height, 50)

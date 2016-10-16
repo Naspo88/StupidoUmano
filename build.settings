@@ -31,7 +31,11 @@ settings =
 			UIStatusBarHidden = false,
 			UIPrerenderedIcon = true, -- set to false for "shine" overlay
 			--UIApplicationExitsOnSuspend = true, -- uncomment to quit app on suspend
-
+			UIAppFonts =
+            {
+                "fonts/Action_Man.ttf",
+                "fonts/ComicJensFreePro-Regular.ttf"
+            },
 			CFBundleIconFiles =
 			{
 				"icon/Icon.png",
