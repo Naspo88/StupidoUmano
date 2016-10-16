@@ -21,18 +21,18 @@ local transparent = { default={ 1, 1, 1, 0 }, over={ 1, 1, 1, 0 } }
 -- times
 local timeActive = g.timeInSecond
 local step = 980
-local baseCats = "images\\cats\\"
+local baseCats = "images/cats/"
 
 local space = 25
 
 -- images
-local image = { path="images\\defaultbg.png", width=1080, height=1920, x=0.5, y=0.5 }
-local headImage = { path="images\\header.png", width=933, height=553, x=0.5, y=0.2 }
-local whiteBG = { path="images\\boxbianco.png", width=1025, height=800, x=0.5, y=0.6 }
-local infoBtn = { path="images\\btn\\info.png", width=220, height=220, dim=50 }
-local play = { path="images\\btn\\play.png", width=500, height=500, dim=150, x=0.5, y=0.7 }
-local pause = { path="images\\btn\\pausa.png", width=500, height=500, dim=150, x=0.5, y=0.7 }
-local refresh = { path="images\\btn\\refresh.png", width=500, height=500, dim=75, x=0.2, y=0.72 }
+local image = { path="images/defaultbg.png", width=1080, height=1920, x=0.5, y=0.5 }
+local headImage = { path="images/header.png", width=933, height=553, x=0.5, y=0.2 }
+local whiteBG = { path="images/boxbianco.png", width=1025, height=800, x=0.5, y=0.6 }
+local infoBtn = { path="images/btn/info.png", width=220, height=220, dim=50 }
+local play = { path="images/btn/play.png", width=500, height=500, dim=150, x=0.5, y=0.7 }
+local pause = { path="images/btn/pausa.png", width=500, height=500, dim=150, x=0.5, y=0.7 }
+local refresh = { path="images/btn/refresh.png", width=500, height=500, dim=75, x=0.2, y=0.72 }
 local time1 = { x=0.55, y=0.5, fontSize=90, color=g.colorContent }
 local allCats = {
 	{ path= baseCats .. "ciccionebonzo.png", width=1200, height=1200 },
