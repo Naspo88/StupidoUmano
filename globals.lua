@@ -13,13 +13,21 @@ local colorTitle = {0.396, 0.396, 0.396}
 local colorContent = {0.02,0.25,0.28}
 
 -- suoni
-local btnSound = media.newEventSound( "sounds/Button.mp3" )
-local endSound = media.newEventSound( "sounds/Meow.mp3" )
+local btnSound = audio.loadSound( "sounds/Button.mp3" )
+local endSound = audio.loadSound( "sounds/Meow.mp3" )
+local channel = nil
+audio.setVolume( 0.9, { channel=1 } )
 local btnPress = function()
-	media.playEventSound(btnSound)
+	if (channel ~= nil) then
+		audio.stop(channel)
+	end
+	channel= audio.play( btnSound, { channel=1, loops=0 } )
 end
 local endTime = function()
-	media.playEventSound(endSound)
+	if (channel ~= nil) then
+		audio.stop(channel)
+	end
+	channel= audio.play( btnSound, { channel=1, loops=0 } )
 end
 
 -- global functions
