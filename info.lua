@@ -209,6 +209,8 @@ function scene:show( event )
 		end
 
 		g.formatText(g.timeInSecond, timeTxt)
+
+		composer.removeScene( "home" )
 	end
 
 end

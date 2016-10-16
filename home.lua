@@ -289,6 +289,8 @@ function scene:show( event )
 		timeTxt:setFillColor(unpack(time1.color))
 
 	    g.formatText(timeActive, timeTxt)
+
+	    composer.removeScene( "info" )
 	end
 end
 
