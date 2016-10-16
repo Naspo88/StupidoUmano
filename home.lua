@@ -49,7 +49,6 @@ local function toggleRandomCat ()
 		g.hidethis(cats[showCat])
 	end
 
-	local randomDim = math.random(70,80)
 	local newRandom = math.random(table.maxn(cats))
 
 	if (showCat == newRandom) then
@@ -61,9 +60,6 @@ local function toggleRandomCat ()
 
 	showCat = newRandom
 
-	local dw, dh = g.getDimension(allCats[showCat].width, allCats[showCat].height, randomDim)
-
-	cats[showCat].width, cats[showCat].height = dw, dh
 	cats[showCat].x, cats[showCat].y = g.getRandomPosition()
 	g.showthis(cats[showCat], 1)
 end
@@ -111,7 +107,13 @@ local function infoButtonClick( event )
 end
 
 local function playClick (event)
-	if ( "ended" == event.phase ) then
+	if ( "began" == event.phase ) then
+		playBtn:scale( g.scale, g.scale )
+	elseif ( "cancelled" == event.phase ) then
+		playBtn:scale( 1/g.scale, 1/g.scale )
+    elseif ( "ended" == event.phase ) then
+       	playBtn:scale( 1/g.scale, 1/g.scale )
+
         playBtn.isVisible = false
         pauseBtn.isVisible = true
 
@@ -130,7 +132,13 @@ local function playClick (event)
 end
 
 local function pauseClick (event)
-	if ( "ended" == event.phase ) then
+	if ( "began" == event.phase ) then
+		pauseBtn:scale( g.scale, g.scale )
+	elseif ( "cancelled" == event.phase ) then
+		pauseBtn:scale( 1/g.scale, 1/g.scale )
+    elseif ( "ended" == event.phase ) then
+       	pauseBtn:scale( 1/g.scale, 1/g.scale )
+
         playBtn.isVisible = true
         pauseBtn.isVisible = false
 
@@ -145,7 +153,13 @@ local function pauseClick (event)
 end
 
 local function refreshClick (event)
-	if ( "ended" == event.phase ) then
+	if ( "began" == event.phase ) then
+		refreshBtn:scale( g.scale, g.scale )
+	elseif ( "cancelled" == event.phase ) then
+		refreshBtn:scale( 1/g.scale, 1/g.scale )
+    elseif ( "ended" == event.phase ) then
+       	refreshBtn:scale( 1/g.scale, 1/g.scale )
+
 		refreshBtn.isVisible = false
 
 		g.btnPress()
@@ -191,20 +205,19 @@ function scene:show( event )
 		bg.x, bg.y = g.getPosition(image)
 
 		for i = 1, table.maxn(allCats) do
-			local dw, dh = g.getDimension(allCats[i].width, allCats[i].height, 60)
+			local dw, dh = g.getDimension(allCats[i].width, allCats[i].height, 110)
 			cats[i] = display.newImageRect( allCats[i].path, dw, dh )
 			cats[i].x, cats[i].y = g.getRandomPosition()
 			cats[i].alpha = 0
 		end
 
-		local hdW, hdH = g.getDimension(headImage.width, headImage.height, 80)
+		local hdW, hdH = g.getDimension(headImage.width, headImage.height, 95)
 		header = display.newImageRect( headImage.path, hdW, hdH )
 		header.x, header.y = g.getPosition(headImage)
 
 		local bbW, bbH = g.getDimension(whiteBG.width, whiteBG.height, 95, 0)
 		contentBox = display.newImageRect( whiteBG.path, bbW, bbH )
 		contentBox.x, contentBox.y = g.getPosition(whiteBG)
-		contentBox.alpha = 0.75
 
 		info = widget.newButton({
 			id = "infoBtn",

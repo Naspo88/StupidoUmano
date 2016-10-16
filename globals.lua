@@ -4,7 +4,7 @@ local M = {}
 -- global variables
 local margins = 5
 local nl = 22
-local scale = 1.05
+local scale = 1.2
 local timeInSecond = 60
 local timeFont = "fonts\\Action_Man.ttf"
 local infoFont = "fonts\\ComicJensFreePro-Regular.ttf"
@@ -82,10 +82,7 @@ local function getPosition (data, newLine)
 end
 
 local function getRandomPosition ()
-	local ranW = math.random(30,70) / 100
-	local ranH = math.random(20,80) / 100
-
-	return display.contentWidth*ranW, display.contentHeight*ranH
+	return display.contentWidth*0.5, display.contentHeight*0.3
 end
 
 local function hidethis (obj)
