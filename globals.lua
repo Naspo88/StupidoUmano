@@ -68,7 +68,7 @@ local function formatText (time, timeTxt)
 		s = "0" .. s
 	end
 
-	timeTxt.text = h .. m .. s .. k
+	timeTxt.text = h .. m .. s
 end
 
 local function getPosition (data, newLine)
