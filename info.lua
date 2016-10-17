@@ -114,16 +114,7 @@ function scene:create( event )
 
     local sceneGroup = self.view
 
-end
-
--- show()
-function scene:show( event )
-
-    local sceneGroup = self.view
-
-    if ( event.phase == "did" ) then
-
-	    -- UI 
+    -- UI 
 		bg = display.newImageRect( image.path, display.contentWidth, display.contentHeight )
 		bg.x, bg.y = g.getPosition(image)
 
@@ -211,6 +202,17 @@ function scene:show( event )
 		g.formatText(g.timeInSecond, timeTxt)
 
 		composer.removeScene( "home" )
+
+end
+
+-- show()
+function scene:show( event )
+
+    local sceneGroup = self.view
+
+    if ( event.phase == "did" ) then
+
+	    
 	end
 
 end
