@@ -201,7 +201,7 @@ function scene:create( event )
 
 		g.formatText(g.timeInSecond, timeTxt)
 
-		composer.removeScene( "home" )
+		
 
 end
 
@@ -212,7 +212,7 @@ function scene:show( event )
 
     if ( event.phase == "did" ) then
 
-	    
+	    composer.removeScene( "home" )
 	end
 
 end

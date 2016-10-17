@@ -46,7 +46,7 @@ function scene:show( event )
 
     if ( event.phase == "did" ) then
 
-	    timer.performWithDelay( 2000, goToMenu, 1 )
+	    timer.performWithDelay( 1000, goToMenu, 1 )
 	end
 
 end

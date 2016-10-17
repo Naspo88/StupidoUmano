@@ -279,8 +279,6 @@ function scene:create( event )
 
 	    g.formatText(timeActive, timeTxt)
 
-	    composer.removeScene( "info" )
-
 end
 
 -- show()
@@ -289,7 +287,8 @@ function scene:show( event )
     local sceneGroup = self.view
 
     if ( event.phase == "did" ) then
-
+    	composer.removeScene( "info" )
+    	composer.removeScene( "splash" )
 	    
 	end
 end
