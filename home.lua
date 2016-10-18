@@ -29,11 +29,11 @@ local space = 25
 local image = { path="images/defaultbg.png", width=1080, height=1920, x=0.5, y=0.5 }
 local headImage = { path="images/header.png", width=933, height=553, x=0.5, y=0.2 }
 local whiteBG = { path="images/boxbianco.png", width=1025, height=800, x=0.5, y=0.6 }
-local infoBtn = { path="images/btn/info.png", width=220, height=220, dim=75 }
-local play = { path="images/btn/play.png", width=500, height=500, dim=200, x=0.5, y=0.7 }
-local pause = { path="images/btn/pausa.png", width=500, height=500, dim=200, x=0.5, y=0.7 }
-local refresh = { path="images/btn/refresh.png", width=500, height=500, dim=100, x=0.2, y=0.72 }
-local time1 = { x=0.5, y=0.5, fontSize=140, color=g.colorContent }
+local infoBtn = { path="images/btn/info.png", width=220, height=220, dim=55 }
+local play = { path="images/btn/play.png", width=500, height=500, dim=190, x=0.5, y=0.68 }
+local pause = { path="images/btn/pausa.png", width=500, height=500, dim=200, x=0.5, y=0.68 }
+local refresh = { path="images/btn/refresh.png", width=500, height=500, dim=80, x=0.2, y=0.72 }
+local time1 = { x=0.5, y=0.5, fontSize=100, color=g.colorContent }
 local allCats = {
 	{ path= baseCats .. "ciccionebonzo.png", width=1200, height=1200 },
 	{ path= baseCats .. "gattabianca.png", width=1200, height=1379 },

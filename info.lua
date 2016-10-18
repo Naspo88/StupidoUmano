@@ -21,10 +21,10 @@ local image = { path="images/defaultbg.png", width=1080, height=1920, x=0.5, y=0
 local topWbg = { path="images/boxTop.png", width=1041, height=384, x=0.5, y=0.125 }
 local bottomWbg = { path="images/boxBottom.png", width=1041, height=1456, x=0.5, y=0.605 }
 local headImage = { path="images/header.png", width=933, height=553, x=0.5, y=0.33 }
-local backBtn = { path="images/btn/indietro.png", width=206, height=190, dim=90 }
-local time1 = { x=0.525, y=0.115, fontSize=80, color=g.colorContent }
-local lessTime = { path="images/btn/meno.png", width=270, height=270, dim=120, x=0.15, y=0.125 }
-local moreTime = { path="images/btn/piu.png", width=270, height=270, dim=120, x=0.85, y=0.125 }
+local backBtn = { path="images/btn/indietro.png", width=206, height=190, dim=50 }
+local time1 = { x=0.52, y=0.12, fontSize=70, color=g.colorContent }
+local lessTime = { path="images/btn/meno.png", width=270, height=270, dim=100, x=0.15, y=0.125 }
+local moreTime = { path="images/btn/piu.png", width=270, height=270, dim=100, x=0.85, y=0.125 }
 
 -- text
 local var = 0.085
